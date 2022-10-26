@@ -1,0 +1,24 @@
+kumuluzee:
+  name: jdbc-primerjalnik-cen
+  version: 1.0.0
+  env:
+    name: dev
+  server:
+    base-url: http://localhost:8080
+    http:
+      port: 8080
+  datasources:
+    - jndi-name: jdbc/PrimerjalnikCenDB
+      connection-url: jdbc:postgresql://localhost:5432/primerjalnik-cen
+      username: dbuser
+      password: postgres
+      max-pool-size: 20
+  openapi-mp:
+    ui:
+      server-auto-config:
+        enabled: true
+        original-uri-check: true
+  dev:
+    scan-libraries:
+      - models
+      - services
