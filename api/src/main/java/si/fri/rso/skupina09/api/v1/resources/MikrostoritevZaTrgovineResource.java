@@ -93,7 +93,7 @@ public class MikrostoritevZaTrgovineResource {
                     schema = @Schema(implementation = Trgovina.class)
             )
     ) Trgovina trgovina) {
-        if(trgovina.getTrgovinaId() == null || trgovina.getIme() == null) {
+        if(trgovina.getTrgovina_id() == null || trgovina.getIme() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         } else {
             trgovina = trgovinaBean.createTrgovina(trgovina);
@@ -127,7 +127,7 @@ public class MikrostoritevZaTrgovineResource {
         if(trgovina == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(trgovina).build();
     }
 
     @Operation(description = "Izbrisi informacije o trgovini.", summary = "Izbrisi trgovino")

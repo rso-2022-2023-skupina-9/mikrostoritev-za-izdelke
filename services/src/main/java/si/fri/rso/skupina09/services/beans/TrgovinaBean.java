@@ -85,6 +85,7 @@ public class TrgovinaBean {
                 commitTx();
             } catch (Exception e) {
                 rollbackTx();
+                return false;
             }
         } else {
             return false;

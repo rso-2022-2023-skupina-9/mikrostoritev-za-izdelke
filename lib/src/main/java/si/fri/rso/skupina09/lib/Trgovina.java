@@ -4,7 +4,7 @@ import java.time.Instant;
 
 public class Trgovina {
 
-    private Integer trgovinaId;
+    private Integer trgovina_id;
 
     private String ime;
 
@@ -12,12 +12,12 @@ public class Trgovina {
 
     private String sedez;
 
-    public Integer getTrgovinaId() {
-        return trgovinaId;
+    public Integer getTrgovina_id() {
+        return trgovina_id;
     }
 
-    public void setTrgovinaId(Integer trgovinaId) {
-        this.trgovinaId = trgovinaId;
+    public void setTrgovina_id(Integer trgovinaId) {
+        this.trgovina_id = trgovinaId;
     }
 
     public String getIme() {

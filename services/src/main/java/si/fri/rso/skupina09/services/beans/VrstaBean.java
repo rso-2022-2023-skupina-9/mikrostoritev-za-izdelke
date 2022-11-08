@@ -85,6 +85,7 @@ public class VrstaBean {
                 commitTx();
             } catch (Exception e) {
                 rollbackTx();
+                return false;
             }
         } else {
             return false;

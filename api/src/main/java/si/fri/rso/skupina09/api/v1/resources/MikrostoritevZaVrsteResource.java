@@ -127,7 +127,7 @@ public class MikrostoritevZaVrsteResource {
         if(vrsta == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(vrsta).build();
     }
 
     @Operation(description = "Izbrisi informacije o vrsti izdelka.", summary = "Izbrisi vrsto izdelka")

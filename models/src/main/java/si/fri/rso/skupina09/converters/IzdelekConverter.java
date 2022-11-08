@@ -9,12 +9,12 @@ public class IzdelekConverter {
 
     public static Izdelek toDto(IzdelekEntity entity) {
         Izdelek dto = new Izdelek();
-        dto.setIzdelekId(entity.getIzdelekId());
-        dto.setTrgovinaId(entity.getTrgovinaEntity().getTrgovinaId());
-        dto.setVrstaId(entity.getVrstaEntity().getVrstaId());
+        dto.setIzdelek_id(entity.getIzdelekId());
+        dto.setTrgovina_id(entity.getTrgovinaEntity().getTrgovinaId());
+        dto.setVrsta_id(entity.getVrstaEntity().getVrstaId());
         dto.setIme(entity.getIme());
         dto.setCena(entity.getCena());
-        dto.setZadnjaSprememba(entity.getZadnjaSprememba());
+        dto.setZadnja_sprememba(entity.getZadnjaSprememba());
         return dto;
     }
 
@@ -24,7 +24,7 @@ public class IzdelekConverter {
         izdelekEntity.setVrstaEntity(vrstaEntity);
         izdelekEntity.setIme(izdelek.getIme());
         izdelekEntity.setCena(izdelek.getCena());
-        izdelekEntity.setZadnjaSprememba(izdelek.getZadnjaSprememba());
+        izdelekEntity.setZadnjaSprememba(izdelek.getZadnja_sprememba());
         return izdelekEntity;
     }
 }

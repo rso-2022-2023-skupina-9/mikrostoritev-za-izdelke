@@ -7,7 +7,7 @@ public class TrgovinaConverter {
 
     public static Trgovina toDto(TrgovinaEntity trgovinaEntity) {
         Trgovina dto = new Trgovina();
-        dto.setTrgovinaId(trgovinaEntity.getTrgovinaId());
+        dto.setTrgovina_id(trgovinaEntity.getTrgovinaId());
         dto.setIme(trgovinaEntity.getIme());
         dto.setUstanovitev(trgovinaEntity.getUstanovitev());
         dto.setSedez(trgovinaEntity.getSedez());
@@ -16,7 +16,7 @@ public class TrgovinaConverter {
 
     public static TrgovinaEntity toEntity(Trgovina trgovina) {
         TrgovinaEntity entity = new TrgovinaEntity();
-        entity.setTrgovinaId(trgovina.getTrgovinaId());
+        entity.setTrgovinaId(trgovina.getTrgovina_id());
         entity.setIme(trgovina.getIme());
         entity.setUstanovitev(trgovina.getUstanovitev());
         entity.setSedez(trgovina.getSedez());

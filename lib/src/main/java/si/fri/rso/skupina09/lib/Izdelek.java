@@ -4,35 +4,33 @@ import java.time.Instant;
 
 public class Izdelek {
 
-    private Integer izdelekId;
-    private Integer vrstaId;
-    private Integer trgovinaId;
+    private Integer izdelek_id;
+    private Integer vrsta_id;
+    private Integer trgovina_id;
     private String ime;
     private Integer cena;
-    private Instant zadnjaSprememba;
+    private Instant zadnja_sprememba;
 
-    public Integer getIzdelekId() {
-        return izdelekId;
+    public Integer getIzdelek_id() { return izdelek_id; }
+
+    public void setIzdelek_id(Integer izdelek_id) {
+        this.izdelek_id = izdelek_id;
     }
 
-    public void setIzdelekId(Integer izdelekId) {
-        this.izdelekId = izdelekId;
+    public Integer getVrsta_id() {
+        return vrsta_id;
     }
 
-    public Integer getVrstaId() {
-        return vrstaId;
+    public void setVrsta_id(Integer vrsta_id) {
+        this.vrsta_id = vrsta_id;
     }
 
-    public void setVrstaId(Integer vrstaId) {
-        this.vrstaId = vrstaId;
+    public Integer getTrgovina_id() {
+        return trgovina_id;
     }
 
-    public Integer getTrgovinaId() {
-        return trgovinaId;
-    }
-
-    public void setTrgovinaId(Integer trgovinaId) {
-        this.trgovinaId = trgovinaId;
+    public void setTrgovina_id(Integer trgovina_id) {
+        this.trgovina_id = trgovina_id;
     }
 
     public String getIme() {
@@ -51,11 +49,11 @@ public class Izdelek {
         this.cena = cena;
     }
 
-    public Instant getZadnjaSprememba() {
-        return zadnjaSprememba;
+    public Instant getZadnja_sprememba() {
+        return zadnja_sprememba;
     }
 
-    public void setZadnjaSprememba(Instant zadnjaSprememba) {
-        this.zadnjaSprememba = zadnjaSprememba;
+    public void setZadnja_sprememba(Instant zadnja_sprememba) {
+        this.zadnja_sprememba = zadnja_sprememba;
     }
 }

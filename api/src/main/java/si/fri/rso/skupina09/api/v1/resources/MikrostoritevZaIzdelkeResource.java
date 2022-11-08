@@ -93,7 +93,11 @@ public class MikrostoritevZaIzdelkeResource {
                     schema = @Schema(implementation = Izdelek.class)
             )
     ) Izdelek izdelek) {
-        if((izdelek.getTrgovinaId() == null) || (izdelek.getVrstaId() == null) || (izdelek.getIme() == null) || (izdelek.getCena() == null)) {
+        System.out.println(izdelek.getTrgovina_id());
+        System.out.println(izdelek.getVrsta_id());
+        System.out.println(izdelek.getIme());
+        System.out.println(izdelek.getCena());
+        if((izdelek.getTrgovina_id() == null) || (izdelek.getVrsta_id() == null) || (izdelek.getIme() == null) || (izdelek.getCena() == null)) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         } else {
             izdelek = izdelekBean.createIzdelek(izdelek);
@@ -127,7 +131,7 @@ public class MikrostoritevZaIzdelkeResource {
         if(izdelek == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(izdelek).build();
     }
 
     @Operation(description = "Izbrisi informacije o izdelku.", summary = "Izbrisi izdelek")

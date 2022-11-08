@@ -47,13 +47,13 @@ public class IzdelekBean {
     }
 
     public Izdelek createIzdelek(Izdelek izdelek) {
-        TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, izdelek.getTrgovinaId());
+        TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, izdelek.getTrgovina_id());
         if (trgovinaEntity == null) {
-            throw new NotFoundException(String.format("Trgovina z id-jem: %d ne obstaja!", izdelek.getTrgovinaId()));
+            throw new NotFoundException(String.format("Trgovina z id-jem: %d ne obstaja!", izdelek.getTrgovina_id()));
         }
-        VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, izdelek.getVrstaId());
+        VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, izdelek.getVrsta_id());
         if (vrstaEntity == null) {
-            throw new NotFoundException(String.format("Vrsta z id-jem: %d ne obstaja!", izdelek.getVrstaId()));
+            throw new NotFoundException(String.format("Vrsta z id-jem: %d ne obstaja!", izdelek.getVrsta_id()));
         }
         IzdelekEntity izdelekEntity = IzdelekConverter.toEntity(izdelek, trgovinaEntity, vrstaEntity);
         try {
@@ -74,13 +74,13 @@ public class IzdelekBean {
         if (izdelekEntity == null) {
             return null;
         }
-        TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, izdelek.getTrgovinaId());
+        TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, izdelek.getTrgovina_id());
         if (trgovinaEntity == null) {
-            throw new NotFoundException(String.format("Trgovina z id-jem: %d ne obstaja!", izdelek.getTrgovinaId()));
+            throw new NotFoundException(String.format("Trgovina z id-jem: %d ne obstaja!", izdelek.getTrgovina_id()));
         }
-        VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, izdelek.getVrstaId());
+        VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, izdelek.getVrsta_id());
         if (vrstaEntity == null) {
-            throw new NotFoundException(String.format("Vrsta z id-jem: %d ne obstaja!", izdelek.getVrstaId()));
+            throw new NotFoundException(String.format("Vrsta z id-jem: %d ne obstaja!", izdelek.getVrsta_id()));
         }
         IzdelekEntity updatedIzdelekEntity = IzdelekConverter.toEntity(izdelek, trgovinaEntity, vrstaEntity);
         try {
@@ -103,6 +103,7 @@ public class IzdelekBean {
                 commitTx();
             } catch (Exception e) {
                 rollbackTx();
+                return false;
             }
         } else {
             return false;
