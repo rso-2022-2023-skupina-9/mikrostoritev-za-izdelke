@@ -18,6 +18,11 @@ kumuluzee:
       server-auto-config:
         enabled: true
         original-uri-check: true
+  health:
+    checks:
+      data-source-health-check:
+        jndi-name: jdbc/ImageMetadataDS
+        type: liveness
   dev:
     scan-libraries:
       - models

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mikrostoritev-za-izdelke-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mikrostoritev-za-izdelke
+  template:
+    metadata:
+      labels:
+        app: mikrostoritev-za-izdelke
+    spec:
+      containers:
+        - image: zk0821docker/mikrostoritev-za-izdelke:2022-11-08-02-32-28
+          name: mikrostoritev-za-izdelke
+          env:
+            - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
+              value: jdbc:postgresql://surus.db.elephantsql.com:5432/hyofsejj
+            - name: KUMULUZEE_DATASOURCES0_USERNAME
+              value: hyofsejj
+            - name: KUMULUZEE_DATASOURCES0_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pg-pass
+                  key: KUMULUZEE_DATASOURCES0_PASSWORD
+          ports:
+            - containerPort: 8080
+              name: server
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: server
+            initialDelaySeconds: 20
+            periodSeconds: 3
+          readinessProbe:
+              httpGet:
+                path: /health/ready
+                port: server
+              initialDelaySeconds: 20
+              periodSeconds: 3
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mikrostoritev-za-izdelke
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: mikrostoritev-za-izdelke
