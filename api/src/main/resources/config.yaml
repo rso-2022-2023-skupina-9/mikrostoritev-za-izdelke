@@ -21,7 +21,7 @@ kumuluzee:
   health:
     checks:
       data-source-health-check:
-        jndi-name: jdbc/ImageMetadataDS
+        jndi-name: jdbc/PrimerjalnikCenDB
         type: liveness
   dev:
     scan-libraries:

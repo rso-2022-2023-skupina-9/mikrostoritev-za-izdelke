@@ -13,7 +13,7 @@ spec:
         app: mikrostoritev-za-izdelke
     spec:
       containers:
-        - image: zk0821docker/mikrostoritev-za-izdelke:2022-11-08-02-32-28
+        - image: zk0821docker/mikrostoritev-za-izdelke:2022-12-04-03-55-30
           name: mikrostoritev-za-izdelke
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
