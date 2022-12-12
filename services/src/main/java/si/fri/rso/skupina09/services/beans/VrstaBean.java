@@ -2,6 +2,7 @@ package si.fri.rso.skupina09.services.beans;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rso.skupina09.converters.VrstaConverter;
 import si.fri.rso.skupina09.entities.VrstaEntity;
 import si.fri.rso.skupina09.lib.Vrsta;
@@ -30,6 +31,7 @@ public class VrstaBean {
         return result.stream().map(VrstaConverter::toDto).collect(Collectors.toList());
     }
 
+    @Timed
     public List<Vrsta> getVrsta(UriInfo uriInfo) {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0).build();
         return JPAUtils.queryEntities(entityManager, VrstaEntity.class, queryParameters).stream().map(VrstaConverter::toDto).collect(Collectors.toList());

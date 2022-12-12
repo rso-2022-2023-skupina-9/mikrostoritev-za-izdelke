@@ -1,6 +1,7 @@
 package si.fri.rso.skupina09.api.v1.resources;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.kumuluz.ee.logs.cdi.Log;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -23,6 +24,7 @@ import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
 
+@Log
 @ApplicationScoped
 @Path("/trgovine")
 @Produces(MediaType.APPLICATION_JSON)

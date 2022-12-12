@@ -2,6 +2,7 @@ package si.fri.rso.skupina09.services.beans;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rso.skupina09.converters.IzdelekConverter;
 import si.fri.rso.skupina09.entities.IzdelekEntity;
 import si.fri.rso.skupina09.entities.TrgovinaEntity;
@@ -32,6 +33,7 @@ public class IzdelekBean {
         return result.stream().map(IzdelekConverter::toDto).collect(Collectors.toList());
     }
 
+    @Timed
     public List<Izdelek> getIzdelek(UriInfo uriInfo) {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0).build();
         return JPAUtils.queryEntities(entityManager, IzdelekEntity.class, queryParameters).stream().map(IzdelekConverter::toDto).collect(Collectors.toList());
