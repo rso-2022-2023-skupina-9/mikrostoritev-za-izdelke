@@ -49,15 +49,11 @@ public class IzdelekBean {
     }
 
     public Izdelek createIzdelek(Izdelek izdelek) {
-        TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, izdelek.getTrgovina_id());
+        TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, izdelek.getTrgovina().getTrgovina_id());
         if (trgovinaEntity == null) {
-            throw new NotFoundException(String.format("Trgovina z id-jem: %d ne obstaja!", izdelek.getTrgovina_id()));
+            throw new NotFoundException(String.format("Trgovina z id-jem: %d ne obstaja!", izdelek.getTrgovina().getTrgovina_id()));
         }
-        VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, izdelek.getVrsta_id());
-        if (vrstaEntity == null) {
-            throw new NotFoundException(String.format("Vrsta z id-jem: %d ne obstaja!", izdelek.getVrsta_id()));
-        }
-        IzdelekEntity izdelekEntity = IzdelekConverter.toEntity(izdelek, trgovinaEntity, vrstaEntity);
+        IzdelekEntity izdelekEntity = IzdelekConverter.toEntity(izdelek);
         try {
             beginTx();
             entityManager.persist(izdelekEntity);
@@ -76,15 +72,11 @@ public class IzdelekBean {
         if (izdelekEntity == null) {
             return null;
         }
-        TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, izdelek.getTrgovina_id());
+        TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, izdelek.getTrgovina().getTrgovina_id());
         if (trgovinaEntity == null) {
-            throw new NotFoundException(String.format("Trgovina z id-jem: %d ne obstaja!", izdelek.getTrgovina_id()));
+            throw new NotFoundException(String.format("Trgovina z id-jem: %d ne obstaja!", izdelek.getTrgovina().getTrgovina_id()));
         }
-        VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, izdelek.getVrsta_id());
-        if (vrstaEntity == null) {
-            throw new NotFoundException(String.format("Vrsta z id-jem: %d ne obstaja!", izdelek.getVrsta_id()));
-        }
-        IzdelekEntity updatedIzdelekEntity = IzdelekConverter.toEntity(izdelek, trgovinaEntity, vrstaEntity);
+        IzdelekEntity updatedIzdelekEntity = IzdelekConverter.toEntity(izdelek);
         try {
             beginTx();
             updatedIzdelekEntity.setIzdelekId(izdelekEntity.getIzdelekId());

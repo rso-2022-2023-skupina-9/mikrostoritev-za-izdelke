@@ -1,6 +1,7 @@
 package si.fri.rso.skupina09.lib;
 
 import java.time.Instant;
+import java.util.List;
 
 public class Trgovina {
 
@@ -11,6 +12,8 @@ public class Trgovina {
     private Instant ustanovitev;
 
     private String sedez;
+
+    private List<Izdelek> izdelki;
 
     public Integer getTrgovina_id() {
         return trgovina_id;
@@ -44,4 +47,11 @@ public class Trgovina {
         this.sedez = sedez;
     }
 
+    public List<Izdelek> getIzdelki() {
+        return izdelki;
+    }
+
+    public void setIzdelki(List<Izdelek> izdelki) {
+        this.izdelki = izdelki;
+    }
 }

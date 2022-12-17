@@ -1,7 +1,10 @@
 package si.fri.rso.skupina09.entities;
 
+import si.fri.rso.skupina09.lib.Izdelek;
+
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "trgovina")
@@ -23,12 +26,15 @@ public class TrgovinaEntity {
     @Column(name = "sedez")
     private String sedez;
 
-    public Integer getTrgovinaId() {
+    @OneToMany(mappedBy = "TrgovinaEntity")
+    private List<IzdelekEntity> izdelki;
+
+    public Integer getTrgovina_id() {
         return trgovina_id;
     }
 
-    public void setTrgovinaId(Integer trgovinaId) {
-        this.trgovina_id = trgovinaId;
+    public void setTrgovina_id(Integer trgovina_id) {
+        this.trgovina_id = trgovina_id;
     }
 
     public String getIme() {
@@ -53,5 +59,13 @@ public class TrgovinaEntity {
 
     public void setSedez(String sedez) {
         this.sedez = sedez;
+    }
+
+    public List<IzdelekEntity> getIzdelki() {
+        return izdelki;
+    }
+
+    public void setIzdelki(List<IzdelekEntity> izdelki) {
+        this.izdelki = izdelki;
     }
 }

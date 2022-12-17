@@ -55,7 +55,7 @@ public class TrgovinaBean {
         } catch (Exception e) {
             rollbackTx();
         }
-        if (trgovinaEntity.getTrgovinaId() == null) {
+        if (trgovinaEntity.getTrgovina_id() == null) {
             throw new RuntimeException("Trgovina entity ni bil dodan!");
         }
         return TrgovinaConverter.toDto(trgovinaEntity);
@@ -69,7 +69,7 @@ public class TrgovinaBean {
         TrgovinaEntity updatedTrgovinaEntity = TrgovinaConverter.toEntity(trgovina);
         try {
             beginTx();
-            updatedTrgovinaEntity.setTrgovinaId(trgovinaEntity.getTrgovinaId());
+            updatedTrgovinaEntity.setTrgovina_id(trgovinaEntity.getTrgovina_id());
             updatedTrgovinaEntity = entityManager.merge(updatedTrgovinaEntity);
             commitTx();
         } catch (Exception e) {

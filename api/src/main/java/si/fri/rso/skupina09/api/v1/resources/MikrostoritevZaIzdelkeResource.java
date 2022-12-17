@@ -95,11 +95,7 @@ public class MikrostoritevZaIzdelkeResource {
                     schema = @Schema(implementation = Izdelek.class)
             )
     ) Izdelek izdelek) {
-        System.out.println(izdelek.getTrgovina_id());
-        System.out.println(izdelek.getVrsta_id());
-        System.out.println(izdelek.getIme());
-        System.out.println(izdelek.getCena());
-        if((izdelek.getTrgovina_id() == null) || (izdelek.getVrsta_id() == null) || (izdelek.getIme() == null) || (izdelek.getCena() == null)) {
+        if((izdelek.getTrgovina() == null) || (izdelek.getIme() == null) || (izdelek.getCena() == null)) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         } else {
             izdelek = izdelekBean.createIzdelek(izdelek);

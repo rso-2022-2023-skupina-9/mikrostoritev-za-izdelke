@@ -14,7 +14,7 @@ public class IzdelekEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer izdelek_id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "vrsta_id")
     private VrstaEntity vrstaEntity;
 
@@ -39,17 +39,11 @@ public class IzdelekEntity {
         this.izdelek_id = izdelekId;
     }
 
-    public VrstaEntity getVrstaEntity() {
-        return vrstaEntity;
-    }
+    public VrstaEntity getVrstaEntity() { return vrstaEntity; }
 
-    public void setVrstaEntity(VrstaEntity vrstaEntity) {
-        this.vrstaEntity = vrstaEntity;
-    }
+    public void setVrstaEntity(VrstaEntity vrstaEntity) { this.vrstaEntity = vrstaEntity; }
 
-    public TrgovinaEntity getTrgovinaEntity() {
-        return trgovinaEntity;
-    }
+    public TrgovinaEntity getTrgovinaEntity() { return trgovinaEntity; }
 
     public void setTrgovinaEntity(TrgovinaEntity trgovinaEntity) {
         this.trgovinaEntity = trgovinaEntity;

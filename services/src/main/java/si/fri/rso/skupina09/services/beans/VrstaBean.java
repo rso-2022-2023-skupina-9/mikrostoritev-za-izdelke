@@ -55,7 +55,7 @@ public class VrstaBean {
         } catch (Exception e) {
             rollbackTx();
         }
-        if (vrstaEntity.getVrstaId() == null) {
+        if (vrstaEntity.getVrsta_id() == null) {
             throw new RuntimeException("Vrsta entity ni bil dodan!");
         }
         return VrstaConverter.toDto(vrstaEntity);
@@ -69,7 +69,7 @@ public class VrstaBean {
         VrstaEntity updatedVrstaEntity = VrstaConverter.toEntity(vrsta);
         try {
             beginTx();
-            updatedVrstaEntity.setVrstaId(vrstaEntity.getVrstaId());
+            updatedVrstaEntity.setVrsta_id(vrstaEntity.getVrsta_id());
             updatedVrstaEntity = entityManager.merge(updatedVrstaEntity);
             commitTx();
         } catch (Exception e) {

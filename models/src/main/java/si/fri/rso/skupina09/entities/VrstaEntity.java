@@ -1,6 +1,7 @@
 package si.fri.rso.skupina09.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "vrsta")
@@ -15,12 +16,15 @@ public class VrstaEntity {
     @Column(name = "vrsta")
     private String vrsta;
 
-    public Integer getVrstaId() {
+    @OneToMany(mappedBy = "VrstaEntity")
+    private List<IzdelekEntity> izdelki;
+
+    public Integer getVrsta_id() {
         return vrsta_id;
     }
 
-    public void setVrstaId(Integer vrstaId) {
-        this.vrsta_id = vrstaId;
+    public void setVrsta_id(Integer vrsta_id) {
+        this.vrsta_id = vrsta_id;
     }
 
     public String getVrsta() {
@@ -29,5 +33,13 @@ public class VrstaEntity {
 
     public void setVrsta(String vrsta) {
         this.vrsta = vrsta;
+    }
+
+    public List<IzdelekEntity> getIzdelki() {
+        return izdelki;
+    }
+
+    public void setIzdelki(List<IzdelekEntity> izdelki) {
+        this.izdelki = izdelki;
     }
 }
