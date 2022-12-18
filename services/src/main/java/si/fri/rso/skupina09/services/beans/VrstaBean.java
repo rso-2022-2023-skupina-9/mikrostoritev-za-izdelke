@@ -28,6 +28,7 @@ public class VrstaBean {
     public List<Vrsta> getVrsta() {
         TypedQuery<VrstaEntity> query = entityManager.createNamedQuery("VrstaEntity.getAll", VrstaEntity.class);
         List<VrstaEntity> result = query.getResultList();
+        entityManager.refresh(result);
         return result.stream().map(VrstaConverter::toDto).collect(Collectors.toList());
     }
 
@@ -39,6 +40,7 @@ public class VrstaBean {
 
     public Vrsta getVrsta(Integer id) {
         VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, id);
+        entityManager.refresh(vrstaEntity);
         if (vrstaEntity == null) {
             throw new NotFoundException(String.format("Vrsta z id-jem: %d ne obstaja!", id));
         }

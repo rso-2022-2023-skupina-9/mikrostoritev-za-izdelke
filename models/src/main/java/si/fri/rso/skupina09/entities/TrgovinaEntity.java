@@ -1,5 +1,7 @@
 package si.fri.rso.skupina09.entities;
 
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheCoordinationType;
 import si.fri.rso.skupina09.lib.Izdelek;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.util.List;
 @NamedQueries(value = {
         @NamedQuery(name = "TrgovinaEntity.getAll", query = "SELECT trgovina FROM TrgovinaEntity trgovina")
 })
+@Cache(coordinationType = CacheCoordinationType.INVALIDATE_CHANGED_OBJECTS)
 public class TrgovinaEntity {
 
     @Id

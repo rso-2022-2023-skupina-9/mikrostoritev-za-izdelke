@@ -1,5 +1,8 @@
 package si.fri.rso.skupina09.entities;
 
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheCoordinationType;
+
 import javax.persistence.*;
 import java.time.Instant;
 
@@ -8,6 +11,7 @@ import java.time.Instant;
 @NamedQueries(value = {
         @NamedQuery(name = "IzdelekEntity.getAll", query = "SELECT izdelek FROM IzdelekEntity izdelek")
 })
+@Cache(coordinationType = CacheCoordinationType.INVALIDATE_CHANGED_OBJECTS)
 public class IzdelekEntity {
 
     @Id

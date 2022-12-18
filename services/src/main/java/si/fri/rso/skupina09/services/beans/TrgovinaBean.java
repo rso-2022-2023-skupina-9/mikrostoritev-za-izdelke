@@ -28,6 +28,7 @@ public class TrgovinaBean {
     public List<Trgovina> getTrgovina() {
         TypedQuery<TrgovinaEntity> query = entityManager.createNamedQuery("TrgovinaEntity.getAll", TrgovinaEntity.class);
         List<TrgovinaEntity> result = query.getResultList();
+        entityManager.refresh(result);
         return result.stream().map(TrgovinaConverter::toDto).collect(Collectors.toList());
     }
 
@@ -39,6 +40,7 @@ public class TrgovinaBean {
 
     public Trgovina getTrgovina(Integer id) {
         TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, id);
+        entityManager.refresh(trgovinaEntity);
         if (trgovinaEntity == null) {
             throw new NotFoundException(String.format("Trgovina z id-jem: %d ne obstaja!", id));
         }
