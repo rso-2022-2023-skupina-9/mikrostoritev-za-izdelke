@@ -2,19 +2,34 @@ package si.fri.rso.skupina09.services.beans;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rso.skupina09.converters.IzdelekConverter;
 import si.fri.rso.skupina09.entities.IzdelekEntity;
 import si.fri.rso.skupina09.entities.TrgovinaEntity;
 import si.fri.rso.skupina09.entities.VrstaEntity;
 import si.fri.rso.skupina09.lib.Izdelek;
+import si.fri.rso.skupina09.services.DTOs.CurrencyConverterRequest;
+import si.fri.rso.skupina09.services.DTOs.CurrencyConverterResponse;
+import si.fri.rso.skupina09.services.config.ConfigProperties;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ProcessingException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -26,6 +41,21 @@ public class IzdelekBean {
 
     @Inject
     private EntityManager entityManager;
+
+    @Inject
+    private IzdelekBean izdelekBeanProxy;
+
+    @Inject
+    private ConfigProperties configProperties;
+
+    private Client httpClient;
+    private String baseUrl;
+
+    @PostConstruct
+    private void init() {
+        httpClient = ClientBuilder.newClient();
+        baseUrl = "https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency";
+    }
 
     public List<Izdelek> getIzdelek() {
         TypedQuery<IzdelekEntity> query = entityManager.createNamedQuery("IzdelekEntity.getAll", IzdelekEntity.class);
@@ -105,7 +135,35 @@ public class IzdelekBean {
         }
         return true;
     }
+/*
+    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
+    @CircuitBreaker(requestVolumeThreshold = 3)
+    @Fallback(fallbackMethod = "convertCurrencyFallback")
 
+ */
+    public CurrencyConverterResponse convertCurrency(CurrencyConverterRequest currencyConverterRequest) {
+        logger.info("Calling API for currency conversion!");
+        try {
+            CurrencyConverterResponse response = httpClient
+                    .target(baseUrl)
+                    .queryParam("have", currencyConverterRequest.getHave())
+                    .queryParam("want", currencyConverterRequest.getWant())
+                    .queryParam("amount", currencyConverterRequest.getAmount())
+                    .request(MediaType.APPLICATION_JSON)
+                    .header("X-RapidAPI-Key", configProperties.getxRapidAPIKey())
+                    .header("X-RapidAPI-Host", configProperties.getxRapidAPIHost())
+                    .get(CurrencyConverterResponse.class);
+            return response;
+        } catch (WebApplicationException | ProcessingException e) {
+            logger.severe(e.getMessage());
+            throw new InternalServerErrorException(e);
+        }
+    }
+
+    public CurrencyConverterResponse convertCurrencyFallback(CurrencyConverterRequest currencyConverterRequest) {
+        logger.info("Currency conversion fallback!");
+        return null;
+    }
     private void beginTx() {
         if (!entityManager.getTransaction().isActive()) {
             entityManager.getTransaction().begin();

@@ -59,6 +59,14 @@ kumuluzee:
                                    </Root>
                                </Loggers>
                            </Configuration>'
+  rest-client:
+    registrations:
+      - class: currency-converter-api
+        url: https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency
+        read-timeout: 5000
 config-properties:
   maintenance-mode: false
   broken: false
+  rapid-api:
+    x-rapidapi-key:
+    x-rapidapi-host:

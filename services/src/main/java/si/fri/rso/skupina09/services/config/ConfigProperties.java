@@ -14,6 +14,12 @@ public class ConfigProperties {
 
     private Boolean broken;
 
+    @ConfigValue(value = "rapid-api.x-rapidapi-key", watch = true)
+    private String xRapidAPIKey;
+
+    @ConfigValue(value = "rapid-api.x-rapidapi-host", watch = true)
+    private String xRapidAPIHost;
+
     public Boolean getMaintenanceMode() {
         return this.maintenanceMode;
     }
@@ -28,5 +34,21 @@ public class ConfigProperties {
 
     public void setBroken(final Boolean broken) {
         this.broken = broken;
+    }
+
+    public String getxRapidAPIKey() {
+        return xRapidAPIKey;
+    }
+
+    public void setxRapidAPIKey(String xRapidAPIKey) {
+        this.xRapidAPIKey = xRapidAPIKey;
+    }
+
+    public String getxRapidAPIHost() {
+        return xRapidAPIHost;
+    }
+
+    public void setxRapidAPIHost(String xRapidAPIHost) {
+        this.xRapidAPIHost = xRapidAPIHost;
     }
 }

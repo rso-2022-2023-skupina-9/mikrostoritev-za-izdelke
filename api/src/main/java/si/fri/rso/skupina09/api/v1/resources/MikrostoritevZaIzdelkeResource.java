@@ -12,6 +12,8 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.rso.skupina09.lib.Izdelek;
+import si.fri.rso.skupina09.services.DTOs.CurrencyConverterRequest;
+import si.fri.rso.skupina09.services.DTOs.CurrencyConverterResponse;
 import si.fri.rso.skupina09.services.beans.IzdelekBean;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -153,5 +155,32 @@ public class MikrostoritevZaIzdelkeResource {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    @Operation(description = "Pridobi ceno izdelka v drugi valuti", summary = "Cena izdelka v drugi valuti")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Cena izdelka v drugi valuti uspesno pridobljena"
+            ),
+            @APIResponse(
+                    responseCode = "404",
+                    description = "Izdelek ne obstaja oz. napaka v klicu zunanjega API-ja"
+            )
+    })
+    @POST
+    @Path("valute")
+    public Response pridobiCenoVDrugiValuti(@RequestBody(
+                                                description = "DTO objekt z informacijami o spremembi valute izdelka",
+                                                required = true,
+                                                content = @Content(
+                                                    schema = @Schema(implementation = CurrencyConverterRequest.class)
+                                                )
+                                            ) CurrencyConverterRequest currencyConverterRequest) {
+        CurrencyConverterResponse currencyConverterResponse = izdelekBean.convertCurrency(currencyConverterRequest);
+        if (currencyConverterResponse == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.status(Response.Status.OK).entity(currencyConverterResponse).build();
     }
 }
