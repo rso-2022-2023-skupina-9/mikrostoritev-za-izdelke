@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rso-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /mikrostoritev-za-izdelke(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: mikrostoritev-za-izdelke
+                port:
+                  number: 8080
+          - path: /mikrostoritev-za-kosarice(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: mikrostoritev-za-kosarice
+                port:
+                  number: 8081
