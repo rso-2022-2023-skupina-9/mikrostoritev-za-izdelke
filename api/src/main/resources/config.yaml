@@ -13,7 +13,7 @@ kumuluzee:
       connection-url: jdbc:postgresql://localhost:5432/primerjalnik-cen
       username: dbuser
       password: postgres
-      max-pool-size: 20
+      max-pool-size: 1
   openapi-mp:
     ui:
       server-auto-config:
@@ -46,8 +46,8 @@ kumuluzee:
                                    <Console name="console" target="SYSTEM_OUT">
                                        <PatternLayout pattern="%d %p %marker %m %X %ex %n"/>
                                    </Console>
-                                   <Socket name="logstash" host="14c805d1-45a9-4d59-93b4-fc92236277b8-ls.logit.io"
-                                   port="54321" protocol="udp">
+                                   <Socket name="logstash" host="625c2d49-19b3-438d-a67d-fc1d7398e073-ls.logit.io"
+                                   port="15136" protocol="udp">
                                        <JSONLayout complete="false" compact="true" eventEol="true" charset="UTF-8" properties="true"/>
                                    </Socket>
                                </Appenders>

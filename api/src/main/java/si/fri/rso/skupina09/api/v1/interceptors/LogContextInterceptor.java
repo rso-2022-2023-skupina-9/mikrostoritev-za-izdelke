@@ -19,22 +19,22 @@ import java.util.UUID;
 public class LogContextInterceptor {
 
     @AroundInvoke
-    public Object logMethodEntryAndExit(InvocationContext ctx) throws Exception {
+    public Object logMethodEntryAndExit(InvocationContext context) throws Exception {
+
         ConfigurationUtil configurationUtil = ConfigurationUtil.getInstance();
+
         HashMap settings = new HashMap();
-        /* Fill up the settings with wanted fields */
+
         settings.put("environmentType", EeConfig.getInstance().getEnv().getName());
         settings.put("applicationName", EeConfig.getInstance().getName());
         settings.put("applicationVersion", EeConfig.getInstance().getVersion());
         settings.put("uniqueInstanceId", EeRuntime.getInstance().getInstanceId());
+
         settings.put("uniqueRequestId", UUID.randomUUID().toString());
 
-        try(final CloseableThreadContext.Instance ctc = CloseableThreadContext.putAll(settings)) {
-            Object result = ctx.proceed();
+        try (final CloseableThreadContext.Instance ctc = CloseableThreadContext.putAll(settings)) {
+            Object result = context.proceed();
             return result;
-        } catch(Exception e) {
-            System.out.println("Something went wrong while logging method entry and exit!");
-            throw e;
         }
     }
 }
