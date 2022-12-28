@@ -13,7 +13,8 @@ kumuluzee:
       connection-url: jdbc:postgresql://localhost:5432/primerjalnik-cen
       username: dbuser
       password: postgres
-      max-pool-size: 1
+      pool:
+        max-size: 1
   openapi-mp:
     ui:
       server-auto-config:
