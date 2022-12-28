@@ -62,7 +62,7 @@ kumuluzee:
                            </Configuration>'
   config:
     consul:
-      agent: http://35.204.244.104
+      agent: http://34.141.157.180
   rest-client:
     registrations:
       - class: currency-converter-api
