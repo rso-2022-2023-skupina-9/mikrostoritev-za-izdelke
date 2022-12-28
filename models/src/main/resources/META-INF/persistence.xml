@@ -6,6 +6,7 @@
         <class>si.fri.rso.skupina09.entities.IzdelekEntity</class>
         <class>si.fri.rso.skupina09.entities.TrgovinaEntity</class>
         <class>si.fri.rso.skupina09.entities.VrstaEntity</class>
+        <class>si.fri.rso.skupina09.entities.KosaricaEntity</class>
         <class>si.fri.rso.skupina09.converters.InstantAttributeConverter</class>
 
         <properties>
