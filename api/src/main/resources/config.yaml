@@ -63,6 +63,7 @@ kumuluzee:
   config:
     consul:
       agent: http://localhost:8500
+    start-retry-delay-ms: 900000000
   rest-client:
     registrations:
       - class: kosarice-api
@@ -86,7 +87,7 @@ kumuluzee:
         auto-commit-interval-ms: 1000
         auto-offset-reset: earliest
         session-timeout-ms: 30000
-        sasl-jaas-config: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="utvuvjbr" password="<hidden>";'
+        sasl-jaas-config: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="utvuvjbr" password="hF3wnDkMmZutCy7ajvwx6AkSbZJgKPiw";'
 config-properties:
   maintenance-mode: false
   broken: false
