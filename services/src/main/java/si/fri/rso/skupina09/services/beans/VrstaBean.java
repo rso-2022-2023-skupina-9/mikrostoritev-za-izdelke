@@ -32,12 +32,13 @@ public class VrstaBean {
         return result.stream().map(VrstaConverter::toDto).collect(Collectors.toList());
     }
 
-    @Timed
+    @Timed(name = "get_vrste_method")
     public List<Vrsta> getVrsta(UriInfo uriInfo) {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0).build();
         return JPAUtils.queryEntities(entityManager, VrstaEntity.class, queryParameters).stream().map(VrstaConverter::toDto).collect(Collectors.toList());
     }
 
+    @Timed(name = "get_vrsta_method")
     public Vrsta getVrsta(Integer id) {
         VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, id);
         entityManager.refresh(vrstaEntity);
@@ -48,6 +49,7 @@ public class VrstaBean {
         return vrsta;
     }
 
+    @Timed(name = "create_vrsta_method")
     public Vrsta createVrsta(Vrsta vrsta) {
         VrstaEntity vrstaEntity = VrstaConverter.toEntity(vrsta);
         try {
@@ -63,6 +65,7 @@ public class VrstaBean {
         return VrstaConverter.toDto(vrstaEntity);
     }
 
+    @Timed(name = "put_vrsta_method")
     public Vrsta putVrsta(Integer id, Vrsta vrsta) {
         VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, id);
         if (vrstaEntity == null) {
@@ -80,6 +83,7 @@ public class VrstaBean {
         return VrstaConverter.toDto(updatedVrstaEntity);
     }
 
+    @Timed(name = "delete_vrsta_method")
     public boolean deleteVrsta(Integer id) {
         VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, id);
         if (vrstaEntity != null) {

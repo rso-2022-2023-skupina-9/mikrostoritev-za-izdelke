@@ -62,15 +62,35 @@ kumuluzee:
                            </Configuration>'
   config:
     consul:
-      agent: http://34.141.157.180
+      agent: http://localhost:8500
   rest-client:
     registrations:
-      - class: currency-converter-api
-        url: https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency
+      - class: kosarice-api
+        url: http://localhost:8081/v1
         read-timeout: 5000
+  streaming:
+    kafka:
+      producer:
+        bootstrap-servers: glider.srvs.cloudkafka.com:9094
+        acks: all
+        retries: 0
+        batch-size: 16384
+        linger-ms: 1
+        buffer-memory: 33554432
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.apache.kafka.common.serialization.StringSerializer
+        security-protocol: SASL_SSL
+        sasl-mechanism: SCRAM-SHA-256
+        group-id: newer
+        enable-auto-commit: true
+        auto-commit-interval-ms: 1000
+        auto-offset-reset: earliest
+        session-timeout-ms: 30000
+        sasl-jaas-config: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="utvuvjbr" password="<hidden>";'
 config-properties:
   maintenance-mode: false
   broken: false
   rapid-api:
     x-rapidapi-key:
     x-rapidapi-host:
+  kosarice-api-url: http://localhost:8081/v1

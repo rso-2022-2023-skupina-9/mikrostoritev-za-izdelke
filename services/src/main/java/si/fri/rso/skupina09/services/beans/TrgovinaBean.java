@@ -32,12 +32,13 @@ public class TrgovinaBean {
         return result.stream().map(TrgovinaConverter::toDto).collect(Collectors.toList());
     }
 
-    @Timed
+    @Timed(name = "get_trgovine_method")
     public List<Trgovina> getTrgovina(UriInfo uriInfo) {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0).build();
         return JPAUtils.queryEntities(entityManager, TrgovinaEntity.class, queryParameters).stream().map(TrgovinaConverter::toDto).collect(Collectors.toList());
     }
 
+    @Timed(name = "get_trgovina_method")
     public Trgovina getTrgovina(Integer id) {
         TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, id);
         entityManager.refresh(trgovinaEntity);
@@ -48,6 +49,7 @@ public class TrgovinaBean {
         return trgovina;
     }
 
+    @Timed(name = "create_trgovina_method")
     public Trgovina createTrgovina(Trgovina trgovina) {
         TrgovinaEntity trgovinaEntity = TrgovinaConverter.toEntity(trgovina);
         try {
@@ -63,6 +65,7 @@ public class TrgovinaBean {
         return TrgovinaConverter.toDto(trgovinaEntity);
     }
 
+    @Timed(name = "put_trgovina_method")
     public Trgovina putTrgovina(Integer id, Trgovina trgovina) {
         TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, id);
         if (trgovinaEntity == null) {
@@ -80,6 +83,7 @@ public class TrgovinaBean {
         return TrgovinaConverter.toDto(updatedTrgovinaEntity);
     }
 
+    @Timed(name = "delete_trgovina_method")
     public boolean deleteTrgovina(Integer id) {
         TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, id);
         if (trgovinaEntity != null) {

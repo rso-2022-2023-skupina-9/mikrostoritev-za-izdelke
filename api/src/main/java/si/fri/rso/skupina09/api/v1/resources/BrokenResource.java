@@ -22,13 +22,13 @@ public class BrokenResource {
     private ConfigProperties configProperties;
 
     @GET
-    @Path("break")
+    @Path("repair")
     public Response makeHealthy() {
         configProperties.setBroken(false);
         return Response.status(Response.Status.OK).entity("{\"message\": \"Set Custom Health Check to Healthy\"}").build();
     }
 
-    @POST
+    @GET
     @Path("break")
     public Response makeUnhealthy() {
         configProperties.setBroken(true);

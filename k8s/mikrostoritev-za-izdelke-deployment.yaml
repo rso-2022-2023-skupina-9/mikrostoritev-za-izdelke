@@ -13,7 +13,7 @@ spec:
         app: mikrostoritev-za-izdelke
     spec:
       containers:
-        - image: zk0821docker/mikrostoritev-za-izdelke:2022-12-28-22-33-35
+        - image: zk0821docker/mikrostoritev-za-izdelke:2022-12-28-23-22-16
           name: mikrostoritev-za-izdelke
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
@@ -33,14 +33,14 @@ spec:
             httpGet:
               path: /health/live
               port: server
-            initialDelaySeconds: 20
-            periodSeconds: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
           readinessProbe:
               httpGet:
                 path: /health/ready
                 port: server
-              initialDelaySeconds: 20
-              periodSeconds: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
 
 ---
 

@@ -43,9 +43,6 @@ public class IzdelekBean {
     private EntityManager entityManager;
 
     @Inject
-    private IzdelekBean izdelekBeanProxy;
-
-    @Inject
     private ConfigProperties configProperties;
 
     private Client httpClient;
@@ -63,12 +60,13 @@ public class IzdelekBean {
         return result.stream().map(IzdelekConverter::toDto).collect(Collectors.toList());
     }
 
-    @Timed
+    @Timed(name = "get_izdelki_method")
     public List<Izdelek> getIzdelek(UriInfo uriInfo) {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0).build();
         return JPAUtils.queryEntities(entityManager, IzdelekEntity.class, queryParameters).stream().map(IzdelekConverter::toDto).collect(Collectors.toList());
     }
 
+    @Timed(name = "get_izdelek_method")
     public Izdelek getIzdelek(Integer id) {
         IzdelekEntity izdelekEntity = entityManager.find(IzdelekEntity.class, id);
         entityManager.refresh(izdelekEntity);
@@ -79,6 +77,7 @@ public class IzdelekBean {
         return izdelek;
     }
 
+    @Timed(name = "create_izdelek_method")
     public Izdelek createIzdelek(Izdelek izdelek) {
         TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, izdelek.getTrgovina().getTrgovina_id());
         if (trgovinaEntity == null) {
@@ -98,6 +97,7 @@ public class IzdelekBean {
         return IzdelekConverter.toDto(izdelekEntity);
     }
 
+    @Timed(name = "put_izdelek_method")
     public Izdelek putIzdelek(Integer id, Izdelek izdelek) {
         IzdelekEntity izdelekEntity = entityManager.find(IzdelekEntity.class, id);
         if (izdelekEntity == null) {
@@ -119,6 +119,7 @@ public class IzdelekBean {
         return IzdelekConverter.toDto(updatedIzdelekEntity);
     }
 
+    @Timed(name = "delete_izdelek_method")
     public boolean deleteIzdelek(Integer id) {
         IzdelekEntity izdelekEntity = entityManager.find(IzdelekEntity.class, id);
         if(izdelekEntity != null) {
@@ -135,12 +136,7 @@ public class IzdelekBean {
         }
         return true;
     }
-/*
-    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
-    @CircuitBreaker(requestVolumeThreshold = 3)
-    @Fallback(fallbackMethod = "convertCurrencyFallback")
 
- */
     public CurrencyConverterResponse convertCurrency(CurrencyConverterRequest currencyConverterRequest) {
         logger.info("Calling API for currency conversion!");
         try {
@@ -160,10 +156,6 @@ public class IzdelekBean {
         }
     }
 
-    public CurrencyConverterResponse convertCurrencyFallback(CurrencyConverterRequest currencyConverterRequest) {
-        logger.info("Currency conversion fallback!");
-        return null;
-    }
     private void beginTx() {
         if (!entityManager.getTransaction().isActive()) {
             entityManager.getTransaction().begin();

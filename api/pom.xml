@@ -58,6 +58,26 @@
         </dependency>
 
         <dependency>
+            <groupId>com.kumuluz.ee.graphql</groupId>
+            <artifactId>kumuluzee-graphql</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kumuluz.ee.graphql</groupId>
+            <artifactId>kumuluzee-graphql-ui</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kumuluz.ee.fault.tolerance</groupId>
+            <artifactId>kumuluzee-fault-tolerance-smallrye</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kumuluz.ee.rest-client</groupId>
+            <artifactId>kumuluzee-rest-client</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>si.fri.rso.skupina09</groupId>
             <artifactId>services</artifactId>
         </dependency>

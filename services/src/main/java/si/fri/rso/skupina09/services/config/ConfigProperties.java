@@ -20,6 +20,9 @@ public class ConfigProperties {
     @ConfigValue(value = "rapid-api.x-rapidapi-host", watch = true)
     private String xRapidAPIHost;
 
+    @ConfigValue(value = "kosarice-api-url", watch = true)
+    private String kosariceAPIURL;
+
     public Boolean getMaintenanceMode() {
         return this.maintenanceMode;
     }
@@ -50,5 +53,13 @@ public class ConfigProperties {
 
     public void setxRapidAPIHost(String xRapidAPIHost) {
         this.xRapidAPIHost = xRapidAPIHost;
+    }
+
+    public String getKosariceAPIURL() {
+        return kosariceAPIURL;
+    }
+
+    public void setKosariceAPIURL(String kosariceAPIURL) {
+        this.kosariceAPIURL = kosariceAPIURL;
     }
 }

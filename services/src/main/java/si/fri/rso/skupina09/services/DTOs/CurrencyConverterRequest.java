@@ -4,7 +4,7 @@ public class CurrencyConverterRequest {
 
     public CurrencyConverterRequest() {}
 
-    public CurrencyConverterRequest(String _have, String _want, Integer _amount) {
+    public CurrencyConverterRequest(String _have, String _want, Double _amount) {
         this.have = _have;
         this.want = _want;
         this.amount = _amount;
@@ -12,7 +12,7 @@ public class CurrencyConverterRequest {
 
     private String have;
     private String want;
-    private Integer amount;
+    private Double amount;
 
     public String getHave() {
         return have;
@@ -30,11 +30,11 @@ public class CurrencyConverterRequest {
         this.want = want;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 }

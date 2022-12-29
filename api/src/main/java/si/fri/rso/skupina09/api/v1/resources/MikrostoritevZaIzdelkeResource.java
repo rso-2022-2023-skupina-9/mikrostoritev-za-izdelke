@@ -11,10 +11,13 @@ import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import si.fri.rso.skupina09.lib.Izdelek;
 import si.fri.rso.skupina09.services.DTOs.CurrencyConverterRequest;
 import si.fri.rso.skupina09.services.DTOs.CurrencyConverterResponse;
 import si.fri.rso.skupina09.services.beans.IzdelekBean;
+import si.fri.rso.skupina09.services.clients.SteviloKosaricAPI;
+import si.fri.rso.skupina09.services.streaming.EventProducerImpl;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -24,6 +27,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
+import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
 
 @Log
@@ -38,6 +42,13 @@ public class MikrostoritevZaIzdelkeResource {
 
     @Inject
     private IzdelekBean izdelekBean;
+
+    @Inject
+    private EventProducerImpl eventProducer;
+
+    @Inject
+    @RestClient
+    private SteviloKosaricAPI steviloKosaricAPI;
 
     @Context
     protected UriInfo uriInfo;
@@ -102,6 +113,15 @@ public class MikrostoritevZaIzdelkeResource {
         } else {
             izdelek = izdelekBean.createIzdelek(izdelek);
         }
+        System.out.println("Pričenjam z ASINHRONIM KLICEM");
+        CompletionStage<Integer> integerCompletionStage = steviloKosaricAPI.pridobiKosariceAsynch();
+        integerCompletionStage.whenComplete((response, throwable) -> System.out.println(String.format("REZULTATI ASINHRONEGA KLICA: Stevilo kosaric = %d", response)));
+        integerCompletionStage.exceptionally(throwable -> {
+            logger.severe(throwable.getMessage());
+            return Integer.valueOf(0);
+        });
+        System.out.println("Zaključujem z dodajanjem entite");
+        eventProducer.produceMessage(izdelek.getIme(), izdelek.getCena());
         return Response.status(Response.Status.CREATED).entity(izdelek).build();
     }
 
