@@ -69,10 +69,10 @@ public class IzdelekBean {
     @Timed(name = "get_izdelek_method")
     public Izdelek getIzdelek(Integer id) {
         IzdelekEntity izdelekEntity = entityManager.find(IzdelekEntity.class, id);
-        entityManager.refresh(izdelekEntity);
         if (izdelekEntity == null) {
             throw new NotFoundException(String.format("Izdelek z id-jem: %d ne obstaja!", id));
         }
+        entityManager.refresh(izdelekEntity);
         Izdelek izdelek = IzdelekConverter.toDto(izdelekEntity);
         return izdelek;
     }

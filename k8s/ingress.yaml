@@ -3,11 +3,11 @@ kind: Ingress
 metadata:
   name: rso-ingress
   annotations:
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: nginx
   rules:
     - http:
         paths:
@@ -25,3 +25,10 @@ spec:
                 name: mikrostoritev-za-kosarice
                 port:
                   number: 8081
+          - path: /mikrostoritev-za-frontend(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: mikrostoritev-za-frontend
+                port:
+                  number: 80

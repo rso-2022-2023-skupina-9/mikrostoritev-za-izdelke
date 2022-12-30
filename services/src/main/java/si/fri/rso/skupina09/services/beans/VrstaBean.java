@@ -41,10 +41,10 @@ public class VrstaBean {
     @Timed(name = "get_vrsta_method")
     public Vrsta getVrsta(Integer id) {
         VrstaEntity vrstaEntity = entityManager.find(VrstaEntity.class, id);
-        entityManager.refresh(vrstaEntity);
         if (vrstaEntity == null) {
             throw new NotFoundException(String.format("Vrsta z id-jem: %d ne obstaja!", id));
         }
+        entityManager.refresh(vrstaEntity);
         Vrsta vrsta = VrstaConverter.toDto(vrstaEntity);
         return vrsta;
     }

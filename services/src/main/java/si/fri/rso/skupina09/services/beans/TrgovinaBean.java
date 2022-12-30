@@ -41,10 +41,10 @@ public class TrgovinaBean {
     @Timed(name = "get_trgovina_method")
     public Trgovina getTrgovina(Integer id) {
         TrgovinaEntity trgovinaEntity = entityManager.find(TrgovinaEntity.class, id);
-        entityManager.refresh(trgovinaEntity);
         if (trgovinaEntity == null) {
             throw new NotFoundException(String.format("Trgovina z id-jem: %d ne obstaja!", id));
         }
+        entityManager.refresh(trgovinaEntity);
         Trgovina trgovina = TrgovinaConverter.toDto(trgovinaEntity);
         return trgovina;
     }
